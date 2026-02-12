@@ -74,11 +74,21 @@ const breadthFirstValue = (root)=>{
     return results;
 }
 
-// Lets use recursion for the breadth first search
 
+// lets serach if a value is included in the tree
+const treeIncludes = (root, target) =>{
+    if(!root) return false;
+    if(root.val === target ) return true
+
+    return treeIncludes(root.left, target) || treeIncludes(root.right, target);
+}
 
 console.log("## Depth first search: ##");
 // console.log(
 // depthFirstValues(a))
 console.log("## Breadth first search: ##");
 console.log(breadthFirstValue(a));
+
+console.log("");
+
+console.log("## Tree Search includes z:",treeIncludes(a,'c'));
