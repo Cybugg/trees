@@ -1,5 +1,5 @@
-class Node{
-    constructor(val){
+class Node {
+    constructor(val) {
         this.val = val;
         this.left = null;
         this.right = null;
@@ -52,43 +52,79 @@ c.left = f;
 
 // Using recursion method for the traversal depth search
 
-const depthFirstValues = (root)=>{
-    if(!root) return [];
+const depthFirstValues = (root) => {
+    if (!root) return [];
     const leftValues = depthFirstValues(root.left);
     const rightValues = depthFirstValues(root.right);
     return [root, ...leftValues, ...rightValues];
 }
 
 // using queue for the breadth traversal search
-const breadthFirstValue = (root)=>{
-    if(!root)return [];
+const breadthFirstValue = (root) => {
+    if (!root) return [];
     const queue = [root];
     const results = [];
-    while(queue.length > 0){
+    while (queue.length > 0) {
         const current = queue.shift();
         console.log(current.val);
         results.push(current.val)
-        if(current.left)queue.push(current.left);
-        if(current.right)queue.push(current.right);
+        if (current.left) queue.push(current.left);
+        if (current.right) queue.push(current.right);
     }
     return results;
 }
 
 
 // lets serach if a value is included in the tree
-const treeIncludes = (root, target) =>{
-    if(!root) return false;
-    if(root.val === target ) return true
+const treeIncludes = (root, target) => {
+    if (!root) return false;
+    if (root.val === target) return true
 
     return treeIncludes(root.left, target) || treeIncludes(root.right, target);
 }
 
 console.log("## Depth first search: ##");
-// console.log(
-// depthFirstValues(a))
+console.log(
+    depthFirstValues(a).map((node) => node.val));
+
 console.log("## Breadth first search: ##");
 console.log(breadthFirstValue(a));
 
 console.log("");
 
-console.log("## Tree Search includes z:",treeIncludes(a,'c'));
+console.log("## Tree Search includes z:", treeIncludes(a, 'c'));
+
+
+
+// #### Array implementation of a binary tree ####
+const tree = ["R", "A", "B", "C", "D", "E", "F", null, null, null, null, null, null, null, "G"]
+
+const leftChild = (i) => 2 * i + 1;
+const rightChild = (i) => 2 * i + 2;
+
+const preOrder = (i) => {
+    if (i >= tree.length || !tree[i]) return;
+    console.log(tree[i]);
+    preOrder(leftChild(i));
+    preOrder(rightChild(i));    
+}
+
+const inOrder = (i) => {
+    if (i >= tree.length || !tree[i]) return;
+    inOrder(leftChild(i));
+    console.log(tree[i]);
+    inOrder(rightChild(i));    
+}
+
+const postOrder = (i) => {
+    if (i >= tree.length || !tree[i]) return;
+    postOrder(leftChild(i));
+    postOrder(rightChild(i));    
+    console.log(tree[i]);
+}
+console.log("## Pre-order traversal: ##");  
+console.log(preOrder(0));
+console.log("## In-order traversal: ##");  
+console.log(inOrder(0));
+console.log("## Post-order traversal: ##");  
+console.log(postOrder(0));
