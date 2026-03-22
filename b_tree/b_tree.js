@@ -305,3 +305,88 @@ console.log(inOrderTraversal(rootBST));
 console.log("After Deletion: ");
 console.log(deleteNodeBST(rootBST, 15));
 console.log(inOrderTraversal(rootBST));
+
+
+// AVL Tree
+class AVLTree {
+  // Get height of a node
+  getHeight(node) {
+    return node ? node.height : 0;
+  }
+
+  // Get balance factor
+  getBalanceFactor(node) {
+    return node ? this.getHeight(node.left) - this.getHeight(node.right) : 0;
+  }
+
+  // Right Rotation (Single)
+  rightRotate(y) {
+    let x = y.left;
+    let T2 = x.right;
+
+    x.right = y;
+    y.left = T2;
+
+    y.height = Math.max(this.getHeight(y.left), this.getHeight(y.right)) + 1;
+    x.height = Math.max(this.getHeight(x.left), this.getHeight(x.right)) + 1;
+
+    return x;
+  }
+
+  // Left Rotation (Single)
+  leftRotate(x) {
+    let y = x.right;
+    let T2 = y.left;
+
+    y.left = x;
+    x.right = T2;
+
+    x.height = Math.max(this.getHeight(x.left), this.getHeight(x.right)) + 1;
+    y.height = Math.max(this.getHeight(y.left), this.getHeight(y.right)) + 1;
+
+    return y;
+  }
+    insert(node, value) {
+    // 1. Standard BST Insertion
+    if (!node) return new Node(value);
+
+    if (value < node.value) {
+      node.left = this.insert(node.left, value);
+    } else if (value > node.value) {
+      node.right = this.insert(node.right, value);
+    } else {
+      return node; // Duplicate values not allowed
+    }
+
+    // 2. Update height of ancestor node
+    node.height = 1 + Math.max(this.getHeight(node.left), this.getHeight(node.right));
+
+    // 3. Get balance factor to check if it became unbalanced
+    let balance = this.getBalanceFactor(node);
+
+    // Case 1: Left-Left (Right Rotation)
+    if (balance > 1 && value < node.left.value) {
+      return this.rightRotate(node);
+    }
+
+    // Case 2: Right-Right (Left Rotation)
+    if (balance < -1 && value > node.right.value) {
+      return this.leftRotate(node);
+    }
+
+    // Case 3: Left-Right (Left then Right Rotation)
+    if (balance > 1 && value > node.left.value) {
+      node.left = this.leftRotate(node.left);
+      return this.rightRotate(node);
+    }
+
+    // Case 4: Right-Left (Right then Left Rotation)
+    if (balance < -1 && value < node.right.value) {
+      node.right = this.rightRotate(node.right);
+      return this.leftRotate(node);
+    }
+
+    return node;
+  }
+
+}
