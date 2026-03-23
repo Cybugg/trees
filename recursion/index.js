@@ -52,8 +52,8 @@ console.log(output);
 
 // #### power function (base, exp)
 const powMath = (base, pow) => {
-    if(pow === 0){ return 1};
-    return base * powMath(base, pow-1)
+    if (pow === 0) { return 1 };
+    return base * powMath(base, pow - 1)
 };
 
 
@@ -63,15 +63,15 @@ console.log(powMath(8, 2))
 let testStr = "s";
 let testStr2 = "racecar";
 let testStr3 = "hello world";
-let testStr4 = "a man a plan a canal panama";   
+let testStr4 = "a man a plan a canal panama";
 let testStr5 = "no 'x' in nixon";
 
 // Palindromme Checker 
-const isPalindromme = (str, left=0, right=str.length-1) =>{
-    if(left >= right){
+const isPalindromme = (str, left = 0, right = str.length - 1) => {
+    if (left >= right) {
         return true;
     }
-    if(str[left] !== str[right]){
+    if (str[left] !== str[right]) {
         return false;
     }
 
@@ -85,3 +85,41 @@ console.log(isPalindromme(testStr2))
 console.log(isPalindromme(testStr3))
 console.log(isPalindromme(testStr4))
 console.log(isPalindromme(testStr5))
+
+
+// Binary Search -----> Note that the array must be sorted
+
+const binarySearch = (arr, target, left = 0, right = arr.length - 1) => {
+    // Edge case
+    if (left > right) return false;
+    let mid = Math.floor((right + left) / 2);
+    //base case
+    if (arr[mid] === target) return true;
+
+    if (target > arr[mid]) {
+        return binarySearch(arr, target, ++mid, right)
+    }
+
+    return binarySearch(arr, target, left, --mid)
+}
+
+// Testing the binary search function
+const sortedArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+console.log("----> ", sortedArr[0], sortedArr[sortedArr.length - 1])
+
+console.log(binarySearch(sortedArr, 5)) // true
+console.log(binarySearch(sortedArr, 11)) // false
+
+//climbing stairs problem (with memoization and can also be used in the fibonacci sequence solution above)
+function climbStairsMemo(n, memo = {}) {
+  if (n === 0) return 1;
+  if (n < 0) return 0;
+
+  // Check cache
+  if (memo[n]) return memo[n];
+
+  // Store result
+  memo[n] = climbStairsMemo(n - 1, memo) + climbStairsMemo(n - 2, memo);
+
+  return memo[n];
+}
