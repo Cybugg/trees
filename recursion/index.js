@@ -1,0 +1,87 @@
+// #### reverse a string 
+
+const reverseString = (str) => {
+    if (str.length === 1) return str;
+    return str[str.length - 1] + reverseString(str.slice(0, str.length - 1));
+}
+
+// #### The fibonacci sequence
+const fibonacci = (n) => {
+    if (n <= 0) return 0;
+    if (n === 1) return 1;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+// #### add all the number in an array
+
+const sumArr = (arr) => {
+    if (arr.length === 1) return arr[0];
+    return arr[arr.length - 1] + sumArr(arr.slice(0, arr.length - 1))
+}
+
+console.log(sumArr([1, 2, 3, 15]))
+
+
+// #### factorial
+const factorial = (num) => {
+    if (num === 1) return 1
+    return num * factorial(num - 1)
+}
+
+console.log(factorial(10))
+
+// #### Flatten an array
+const flatArr = (arr) => {
+    const result = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        let val = arr[i];
+        if (Array.isArray(val)) {
+            result.push(...flatArr(val));
+        }
+        else {
+            result.push(val)
+        }
+    }
+    return result;
+}
+const input = [1, [2, 4, [3, 5, 6, [5, 6]]], 8];
+const output = flatArr(input);
+console.log(output);
+
+
+// #### power function (base, exp)
+const powMath = (base, pow) => {
+    if(pow === 0){ return 1};
+    return base * powMath(base, pow-1)
+};
+
+
+console.log(powMath(8, 2))
+
+
+let testStr = "s";
+let testStr2 = "racecar";
+let testStr3 = "hello world";
+let testStr4 = "a man a plan a canal panama";   
+let testStr5 = "no 'x' in nixon";
+
+// Palindromme Checker 
+const isPalindromme = (str, left=0, right=str.length-1) =>{
+    if(left >= right){
+        return true;
+    }
+    if(str[left] !== str[right]){
+        return false;
+    }
+
+    return isPalindromme(str, ++left, --right)
+}
+
+// Tetsing the palindromme function
+console.log("---> ", testStr[0], testStr[testStr.length - 1])
+console.log(isPalindromme(testStr))
+console.log(isPalindromme(testStr2))
+console.log(isPalindromme(testStr3))
+console.log(isPalindromme(testStr4))
+console.log(isPalindromme(testStr5))
