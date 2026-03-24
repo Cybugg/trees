@@ -110,16 +110,16 @@ console.log("----> ", sortedArr[0], sortedArr[sortedArr.length - 1])
 console.log(binarySearch(sortedArr, 5)) // true
 console.log(binarySearch(sortedArr, 11)) // false
 
-//climbing stairs problem (with memoization and can also be used in the fibonacci sequence solution above)
+// climbing stairs problem (with memoization and can also be used in the fibonacci sequence solution above)
 function climbStairsMemo(n, memo = {}) {
-  if (n === 0) return 1;
-  if (n < 0) return 0;
+    if (n === 0) return 1;
+    if (n < 0) return 0;
 
-  // Check cache
-  if (memo[n]) return memo[n];
+    // Check cache
+    if (memo[n]) return memo[n];
 
-  // Store result
-  memo[n] = climbStairsMemo(n - 1, memo) + climbStairsMemo(n - 2, memo);
+    // Store result
+    memo[n] = climbStairsMemo(n - 1, memo) + climbStairsMemo(n - 2, memo);
 
-  return memo[n];
+    return memo[n];
 }
