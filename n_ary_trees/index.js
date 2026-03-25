@@ -46,88 +46,97 @@ class NaryTree {
             });
         }
     }
+// Find node (DFS)
+find(node, value) {
+    if (!node) return null;
+    if (node.value === value) return node;
 
-    // Find node (DFS)
-    find(node, value) {
-        if (!node) return null;
-        if (node.value === value) return node;
-
-        for (let child of node.children) {
-            const found = this.find(child, value);
-            if (found) return found;
-        }
-
-        return null;
+    for (let child of node.children) {
+        const found = this.find(child, value);
+        if (found) return found;
     }
 
-    // Traverse the tree (DFS)
-    dfsPreorder(node) {
-        if (!node) return;
+    return null;
+}
+}
 
-        console.log(node.value);
 
-        for (let child of node.children) {
-            dfsPreorder(child);
-        }
-    }
-    dfsPostorder(node) {
-        if (!node) return;
 
-        for (let child of node.children) {
-            dfsPostorder(child);
-        }
 
-        console.log(node.value);
-    }
-    // Traverse the tree (BFS)
-    bfs(root) {
-        if (!root) return;
+// Traverse the tree (DFS)
+function dfsPreorder(node) {
+    if (!node) return;
 
-        const queue = [root];
+    console.log(node.value);
 
-        while (queue.length) {
-            const node = queue.shift();
-            console.log(node.value);
-
-            for (let child of node.children) {
-                queue.push(child);
-            }
-        }
-    }
-    getHeight(node) {
-        if (!node) return 0;
-
-        let maxHeight = 0;
-
-        for (let child of node.children) {
-            maxHeight = Math.max(maxHeight, getHeight(child));
-        }
-
-        return maxHeight + 1;
-    }
-    printTree(node, level = 0) {
-        if (!node) return;
-
-        console.log("  ".repeat(level) + node.value);
-
-        for (let child of node.children) {
-            printTree(child, level + 1);
-        }
-    }
-    countNodes(node) {
-        if (!node) return 0;
-
-        let count = 1;
-
-        for (let child of node.children) {
-            count += countNodes(child);
-        }
-
-        return count;
+    for (let child of node.children) {
+        dfsPreorder(child);
     }
 }
+
+function dfsPostorder(node) {
+    if (!node) return;
+
+    for (let child of node.children) {
+        dfsPostorder(child);
+    }
+
+    console.log(node.value);
+}
+
+// Traverse the tree (BFS)
+function bfs(root) {
+    if (!root) return;
+
+    const queue = [root];
+
+    while (queue.length) {
+        const node = queue.shift();
+        console.log(node.value);
+
+        for (let child of node.children) {
+            queue.push(child);
+        }
+    }
+}
+// Additional operations
+function getHeight(node) {
+    if (!node) return 0;
+
+    let maxHeight = 0;
+
+    for (let child of node.children) {
+        maxHeight = Math.max(maxHeight, getHeight(child));
+    }
+
+    return maxHeight + 1;
+}
+
+function printTree(node, level = 0) {
+    if (!node) return;
+
+    console.log("  ".repeat(level) + node.value);
+
+    for (let child of node.children) {
+        printTree(child, level + 1);
+    }
+}
+
+function countNodes(node) {
+    if (!node) return 0;
+
+    let count = 1;
+
+    for (let child of node.children) {
+        count += countNodes(child);
+    }
+
+    return count;
+}
+
 // Example usage
-//        A
+
+//     A
 //  /  |  \
 // B   C   D
 //   / \      |
@@ -161,3 +170,8 @@ tree.remove("B");
 
 console.log("After deleting B:");
 bfs(tree.root);
+
+printTree(tree.root);
+
+console.log("Height of tree:", getHeight(tree.root));
+console.log("Total nodes in tree:", countNodes(tree.root)); 
