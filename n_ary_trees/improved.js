@@ -89,6 +89,65 @@ class NaryTree {
 
 
 const tree = new NaryTree(6);
-console.log(tree);
-tree.printTree(tree.root);
-// tree.addChild(3);
+console.log("value:", tree.root.value);
+tree.printTree(tree);
+tree.addChild(tree.root.id, 3);
+tree.addChild(tree.root.id, 4);
+tree.addChild(tree.root.id, 5);
+tree.addChild(tree.root.id, 7);
+tree.addChild(tree.root.id, 8);
+tree.addChild(tree.root.id, 9);
+tree.printTree(tree);
+// tree.removeChild("873e13f6-0f3e-4d14-a4ff-1796b00dd225");
+
+
+const preOrder = (node) => {
+    if (!node) {
+        console.log("cannot find node")
+        return
+    }
+    console.log(node.value);
+
+    for (let child of node.children) {
+        preOrder(child);
+    }
+}
+
+console.log("preorder:")
+console.log(preOrder(tree.root));
+tree.printTree(tree);
+
+const postOrder = (node) => {
+    if (!node) {
+        console.log("cannot find node")
+        return
+    }
+
+    for (let child of node.children) {
+        preOrder(child);
+    }
+
+    console.log(node.value);
+}
+
+console.log("inorder:")
+console.log(postOrder(tree.root));
+tree.printTree(tree);
+
+// Traverse the tree (BFS)
+function bfs(root) {
+    if (!root) return;
+
+    const queue = [root];
+
+    while (queue.length) {
+        const node = queue.shift();
+        console.log(node.value);
+
+        for (let child of node.children) {
+            queue.push(child);
+        }
+    }
+}
+console.log("bfs:")
+bfs(tree.root);
