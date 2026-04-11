@@ -8,42 +8,42 @@
 //                 \
 //                   i
 
-const parse = (input)=>{
+const parse = (input) => {
     // Initialize the position in the input
     let pos = 0;
 
     // non-terminal 
-    const parseE = () =>{
+    const parseE = () => {
 
         let backtrackPos = pos;
-    console.log("Trying E → i + E at pos:", pos);
+        console.log("Trying E → i + E at pos:", pos);
 
-    if (match("i") && match("+") && parseE()) {
-        console.log("Matched i + E at pos:", pos);
-        return true;
-    }
+        if (match("i") && match("+") && parseE()) {
+            console.log("Matched i + E at pos:", pos);
+            return true;
+        }
 
-    console.log("Backtracking from pos:", pos, "to", backtrackPos);
-    pos = backtrackPos;
+        console.log("Backtracking from pos:", pos, "to", backtrackPos);
+        pos = backtrackPos;
 
-    console.log("Trying E → i at pos:", pos);
+        console.log("Trying E → i at pos:", pos);
 
-    if (match("i")) {
-        console.log("Matched i at pos:", pos);
-        return true;
-    }
+        if (match("i")) {
+            console.log("Matched i at pos:", pos);
+            return true;
+        }
 
-    pos = backtrackPos;
-    return false;
+        pos = backtrackPos;
+        return false;
     }
 
     // Helper to match terminal
-    const match = (terminal)=>{
-        if(pos < input.length && terminal === input[pos]){
+    const match = (terminal) => {
+        if (pos < input.length && terminal === input[pos]) {
             pos++;
             return true;
         }
-        else{
+        else {
             return false;
         }
     }
@@ -51,10 +51,10 @@ const parse = (input)=>{
     // start parsing 
     console.log(pos);
     // console.log(input.length);
-    if(parseE() && pos === input.length){
+    if (parseE() && pos === input.length) {
         return "Accepted";
     }
-    else{
+    else {
         return "Rejected"
     }
 };
