@@ -79,3 +79,23 @@ function traverseHybrid(node) {
 }
 
 traverseHybrid(root);
+
+// return arr <pre-order>
+function traverseHybridRtnInArr(node) {
+    if (!node) {
+        return [];
+    }
+    let arr = [node.val]
+    if (node.kind === "binary") {
+        arr.push(...traverseHybridRtnInArr(node.left), ...traverseHybridRtnInArr(node.right))
+    }
+    else if (node.kind === "nary") {
+        for (let child of node.children) {
+            arr.push(...traverseHybridRtnInArr(child))
+        }
+    }
+    return arr;
+}
+
+console.log(traverseHybridRtnInArr(root));
+console.log("done.")
