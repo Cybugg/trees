@@ -32,7 +32,7 @@ const parse = (input) => {
     if (parseE() && pos === input.length) {
         return "Successful";
     }
-    
+
 
     return "Failed";
 };
