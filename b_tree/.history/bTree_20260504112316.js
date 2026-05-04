@@ -136,16 +136,7 @@ var isSameTree = function (p, q) {
     let qTraversal = [];
 
     const traverse = (node, nodeType) => {
-        if (!node) {
-            if (nodeType === "p") {
-                pTraversal.push(null)
-                return
-            }
-            else {
-                qTraversal.push(null)
-                return
-            }
-        }
+        if (!node) 
         if (nodeType === "p") {
             pTraversal.push(node.val)
         }

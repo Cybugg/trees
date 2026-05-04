@@ -131,50 +131,22 @@ console.log(postOrder(0));
 
 // is same tree
 var isSameTree = function (p, q) {
-    if (!p || !q) return false
+    if ((!p.left && !p.right) && (!q.left && !q.right) && (p.val == q.val)) return true
     let pTraversal = [];
     let qTraversal = [];
 
     const traverse = (node, nodeType) => {
-        if (!node) {
-            if (nodeType === "p") {
-                pTraversal.push(null)
-                return
-            }
-            else {
-                qTraversal.push(null)
-                return
-            }
-        }
-        if (nodeType === "p") {
-            pTraversal.push(node.val)
-        }
-        else { qTraversal.push(node.val) }
-        traverse(node.left, nodeType);
-        traverse(node.right, nodeType);
+        if (!node) return
+        nodeType === "p" ? pTraversal.push(node.val) : qTraversal.push(node.val)
+        traverse(node.left);
+        traverse(node.right);
 
     }
     traverse(p, "p");
     traverse(q, "q");
-    console.log(pTraversal);
-    console.log(qTraversal);
-    return areArraysEqual(pTraversal, qTraversal)
+    console.log(pTraversal)
+    console.log(qTraversal)
+    return pTraversal == qTraversal;
 };
 
-const areArraysEqual = (a, b) => {
-   
-    if (a === b) return true;
-
-    if (a.length !== b.length) return false;
-
-    for (let i = 0; i < a.length; i++) {
-        if (a[i] !== b[i]) return false;
-    }
-
-    return true;
-};
-
-let node1 = new Node("a")
-let node2 = new Node("a")
-console.log("===================== same same ? ======================")
-console.log(isSameTree(node1,node2))
+isSameTree()
